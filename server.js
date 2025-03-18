@@ -2,11 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const path = require('path');
-const dotenv = require('dotenv');
 const app = express();
-
-// Load environment variables from .env file
-dotenv.config();
 
 // Enable CORS for all routes
 app.use(cors());
@@ -23,9 +19,7 @@ app.get('/', (req, res) => {
 app.get('/api/weather/:city', async (req, res) => {
     try {
         const city = req.params.city;
-        const apiKey = process.env.WEATHER_API_KEY;
-
-        const response = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`);
+        const response = await axios.get(`http://api.weatherapi.com/v1/current.json?key=447fffe54fef4ecd80f143636251703&q=${city}`);
         
         // Transform the data to our custom format
         const weatherData = {
@@ -72,9 +66,7 @@ app.get('/api/weather/:city', async (req, res) => {
 app.get('/api/forecast/:lat/:lon', async (req, res) => {
     try {
         const { lat, lon } = req.params;
-        const apiKey = process.env.WEATHER_API_KEY;
-
-        const response = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&days=7`);
+        const response = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=447fffe54fef4ecd80f143636251703&q=${lat},${lon}&days=7`);
         
         const forecastData = {
             daily: response.data.forecast.forecastday.map(day => ({
